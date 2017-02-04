@@ -1,0 +1,83 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{geometry}
+\usepackage{fontspec}
+\usepackage{background}
+\usepackage{setspace}
+\setmainfont{\VAR{font}}
+\usetikzlibrary{matrix}
+\usetikzlibrary{positioning}
+\usetikzlibrary{backgrounds}
+\geometry{
+paperwidth=297mm,
+paperheight=210mm,
+margin=0mm
+}
+\backgroundsetup{scale = 1, angle = 0, opacity = \VAR{bgopac},
+   contents = {\includegraphics[width = \paperwidth,
+   height = \paperheight, keepaspectratio]
+   {\VAR{bgpic}}}}
+
+\begin{document}\sloppy
+\pagestyle{empty}
+\setlength{\baselineskip}{\VAR{linespacing}cm}
+\setlength{\parindent}{0cm} % no indent
+
+\small
+%\hyphenchar\font=-1 %used to suppress hyphenation
+\tikzset
+{
+    program/.style=
+    {
+        matrix of nodes,
+        nodes in empty cells,
+        fill=white,
+        line width=0.4mm,
+        inner xsep=\VAR{mxsep}cm,
+        inner ysep=\VAR{mysep}cm,
+        outer sep=0cm,
+        column 1/.style =
+        {
+            nodes =
+            {
+                text width=\VAR{colw[0]}cm,
+            }
+        },
+        column 2/.style =
+        {
+            nodes =
+            {
+                text width=\VAR{colw[1]}cm
+            }
+        },
+        column 3/.style =
+        {
+            nodes =
+            {
+                text width=\VAR{colw[2]}cm
+            }
+        },
+        nodes =
+        {
+            outer sep=0cm,
+            inner xsep=\VAR{xsep}cm,
+            inner ysep=\VAR{ysep}cm,
+            execute at begin node = \setlength{\baselineskip}{\VAR{linespacing}cm}
+        }
+    },
+    time/.style=
+    {
+        rectangle,
+        rotate=-90,
+        fill=black,
+        text=white,
+        align=center,
+        inner sep=\VAR{mtsep}cm,
+        font = \Large
+    }
+}
+
+\begin{tikzpicture}[remember picture,overlay]
+\VAR{tikzstr}
+\end{tikzpicture}
+\end{document}

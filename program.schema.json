@@ -1,0 +1,124 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Concert program",
+    "type": "array",
+    "items":
+    {
+        "title": "Part",
+        "type": "object",
+        "properties":
+        {
+            "time":
+            {
+                "description": "The starting time for this part",
+                "type": "string"
+            },
+            "program":
+            {
+                "type": "array",
+                "items":
+                {
+                    "title": "performance",
+                    "description": "performance by an ensemble",
+                    "type": "object",
+                    "properties":
+                    {
+                        "performers":
+                        {
+                            "type": "array",
+                            "items":
+                            {
+                                "title": "ensemble member",
+                                "type": "object",
+                                "properties":
+                                {
+                                    "name":
+                                    {
+                                        "description": "The name of this ensemble member",
+                                        "type": "string"
+                                    },
+                                    "instrument":
+                                    {
+                                        "description": "The instrument of this ensemble member",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": ["name", "instrument"]
+                            },
+                            "minItems": 1,
+                            "uniqueItems": true
+                        },
+                        "pieces":
+                        {
+                            "type": "array",
+                            "items":
+                            {
+                                "title": "musical piece",
+                                "type": "object",
+                                "properties":
+                                {
+                                    "name":
+                                    {
+                                        "description": "name of the piece",
+                                        "type": "string"
+                                    },
+                                    "composer":
+                                    {
+                                        "description": "composer of the piece",
+                                        "type": "object",
+                                        "properties":
+                                        {
+                                            "name":
+                                            {
+                                                "description": "name of the composer",
+                                                "type": "string"
+                                            },
+                                            "yob":
+                                            {
+                                                "description": "year of birth",
+                                                "type": "string"
+                                            },
+                                            "yod":
+                                            {
+                                                "description": "year of death",
+                                                "type": "string"
+                                            },
+                                            "arr":
+                                            {
+                                                "description": "arranged by",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": ["name"]
+                                    },
+                                    "movements":
+                                    {
+                                        "type": "array",
+                                        "items":
+                                        {
+                                            "title": "movement",
+                                            "description": "movements to be played",
+                                            "type": "string"
+                                        },
+                                        "minItems": 1,
+                                        "uniqueItems": true
+                                    }
+                                },
+                                "required": ["name"]
+                            },
+                            "minItems": 1,
+                            "uniqueItems": true
+                        }
+                    },
+                    "required": ["performers", "pieces"]
+                },
+                "minItems": 1,
+                "uniqueItems": true
+            }
+        },
+        "required": ["time", "program"]
+    },
+    "minItems": 1,
+    "maxItems": 3,
+    "uniqueItems": true
+}
