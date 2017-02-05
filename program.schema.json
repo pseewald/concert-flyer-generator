@@ -1,106 +1,123 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Concert program",
+    "title": "🎵 Concert Program Manager 🎵",
     "type": "array",
     "items":
     {
-        "title": "Part",
+        "title": "concert block",
         "type": "object",
         "properties":
         {
             "time":
             {
                 "description": "The starting time for this part",
+                "title": "starting time",
                 "type": "string"
             },
             "performances":
             {
+                "title": "performances",
                 "type": "array",
                 "items":
                 {
-                    "title": "performance",
                     "description": "performance by an ensemble",
+                    "title": "performance",
                     "type": "object",
                     "properties":
                     {
                         "ensemble":
                         {
+                            "title": "ensemble",
                             "type": "array",
                             "items":
                             {
-                                "title": "ensemble member",
+                                "title": "member",
                                 "type": "object",
                                 "properties":
                                 {
                                     "name":
                                     {
                                         "description": "The name of this ensemble member",
+                                        "title": "name",
                                         "type": "string"
                                     },
                                     "instrument":
                                     {
                                         "description": "The instrument of this ensemble member",
+                                        "title": "instrument",
                                         "type": "string"
                                     }
                                 },
                                 "required": ["name", "instrument"]
                             },
                             "minItems": 1,
+                            "maxItems": 5,
                             "uniqueItems": true
                         },
                         "pieces":
                         {
+                            "title": "musical pieces",
                             "type": "array",
                             "items":
                             {
-                                "title": "musical piece",
+                                "title": "piece",
                                 "type": "object",
                                 "properties":
                                 {
                                     "title":
                                     {
                                         "description": "title of the piece",
+                                        "title": "title",
                                         "type": "string"
                                     },
                                     "composer":
                                     {
                                         "description": "composer of the piece",
+                                        "title": "composer",
                                         "type": "object",
                                         "properties":
                                         {
                                             "name":
                                             {
                                                 "description": "name of the composer",
+                                                "title": "name",
                                                 "type": "string"
                                             },
                                             "yob":
                                             {
-                                                "description": "year of birth",
-                                                "type": "string"
+                                                "title": "year of birth",
+                                                "type": "string",
+                                                "minLength": 4,
+                                                "maxLength": 4
                                             },
                                             "yod":
                                             {
-                                                "description": "year of death",
-                                                "type": "string"
+                                                "title": "year of death",
+                                                "type": "string",
+                                                "minLength": 4,
+                                                "maxLength": 4
                                             },
                                             "arr":
                                             {
-                                                "description": "arranged by",
+                                                "title": "arranged by",
                                                 "type": "string"
                                             }
+                                        },
+                                        "dependencies":
+                                        {
+                                            "yod": ["yob"]
                                         },
                                         "required": ["name"]
                                     },
                                     "movements":
                                     {
+                                        "title": "movements",
                                         "type": "array",
                                         "items":
                                         {
-                                            "title": "movement",
                                             "description": "movements to be played",
                                             "type": "string"
                                         },
-                                        "minItems": 1,
                                         "uniqueItems": true
                                     }
                                 },
