@@ -13,7 +13,7 @@
                 "description": "The starting time for this part",
                 "type": "string"
             },
-            "program":
+            "performances":
             {
                 "type": "array",
                 "items":
@@ -23,7 +23,7 @@
                     "type": "object",
                     "properties":
                     {
-                        "performers":
+                        "ensemble":
                         {
                             "type": "array",
                             "items":
@@ -110,13 +110,13 @@
                             "uniqueItems": true
                         }
                     },
-                    "required": ["performers", "pieces"]
+                    "required": ["ensemble", "pieces"]
                 },
                 "minItems": 1,
                 "uniqueItems": true
             }
         },
-        "required": ["time", "program"]
+        "required": ["time", "performances"]
     },
     "minItems": 1,
     "maxItems": 3,

@@ -1,10 +1,10 @@
 [
     {
         "time": "6:00 PM",
-        "program":
+        "performances":
         [
             {
-                "performers":
+                "ensemble":
                 [
                     {"name": "Lorenz Eberhardt", "instrument": "piano"}
                 ],
@@ -22,7 +22,7 @@
                 ]
             },
             {
-                "performers":
+                "ensemble":
                 [
                     {"name": "Markos Tsinganis", "instrument": "piano"}
                 ],
@@ -35,7 +35,7 @@
                 ]
             },
             {
-                "performers":
+                "ensemble":
                 [
                     {"name": "Christopher Gordon", "instrument": "violin"},
                     {"name": "Lorenz Eberhardt", "instrument": "piano"}
@@ -53,7 +53,7 @@
                 ]
             },
             {
-                "performers":
+                "ensemble":
                 [
                     {"name": "Harshit Khurana", "instrument": "bansuri"}
                 ],
@@ -65,7 +65,7 @@
                 ]
             },
             {
-                "performers":
+                "ensemble":
                 [
                     {"name": "The Threads", "instrument": "a cappella"}
                 ],
@@ -89,10 +89,10 @@
     },
     {
         "time": "7:00 PM",
-        "program":
+        "performances":
         [
             {
-                "performers":
+                "ensemble":
                 [
                     {"name": "Floris Zuur", "instrument": "piano"}
                 ],
@@ -108,7 +108,7 @@
                 ]
             },
             {
-                "performers":
+                "ensemble":
                 [
                     {"name": "Yingiao Dai", "instrument": "piano"}
                 ],
@@ -121,7 +121,7 @@
                 ]
             },
             {
-                "performers":
+                "ensemble":
                 [
                     {"name": "Max Khevenhüller-Metsch", "instrument": "piano"}
                 ],
@@ -134,7 +134,7 @@
                 ]
             },
             {
-                "performers":
+                "ensemble":
                 [
                     {"name": "Mikhail Oussov", "instrument": "piano"}
                 ],
@@ -147,7 +147,7 @@
                 ]
             },
             {
-                "performers":
+                "ensemble":
                 [
                     {"name": "Thanos Kontis", "instrument": "vocals, ac. guitar"},
                     {"name": "Panagiotis Martakis", "instrument": "vocals, cajon"},
@@ -164,10 +164,10 @@
     },
     {
         "time": "8:30 PM",
-        "program":
+        "performances":
         [
             {
-                "performers":
+                "ensemble":
                 [
                     {"name": "Annina Moser", "instrument": "piano"}
                 ],
@@ -185,7 +185,7 @@
                 ]
             },
             {
-                "performers":
+                "ensemble":
                 [
                     {"name": "Christoph Waupotitsch", "instrument": "piano"}
                 ],
@@ -198,7 +198,7 @@
                 ]
             },
             {
-                "performers":
+                "ensemble":
                 [
                     {"name": "Zi-Jin Lei", "instrument": "tenor"},
                     {"name": "Si-Chen Li", "instrument": "piano"}
@@ -215,7 +215,7 @@
                 ]
             },
             {
-                "performers":
+                "ensemble":
                 [
                     {"name": "Damian Renggli", "instrument": "piano"}
                 ],
@@ -231,7 +231,7 @@
                 ]
             },
             {
-                "performers":
+                "ensemble":
                 [
                     {"name": "Patric Ryser", "instrument": "piano"}
                 ],
@@ -244,7 +244,7 @@
                 ]
             },
             {
-                "performers":
+                "ensemble":
                 [
                     {"name": "Mandira Halder", "instrument": "soprano"},
                     {"name": "Patrick Seewald", "instrument": "clarinet"},

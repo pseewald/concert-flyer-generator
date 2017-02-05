@@ -89,7 +89,7 @@ timeftd = {r"pos": [r"right", r"left", r"right"],
 tikzstr = r''
 for ipart, part in enumerate(program_full):
     time = part['time']
-    program = part['program']
+    performances = part['performances']
 
     tikzstr += r'\matrix (part {}) [program, anchor = {}, xshift = {}, yshift = {}] at ({})'.format(
                ipart,
@@ -101,7 +101,7 @@ for ipart, part in enumerate(program_full):
     tikzstr += r'{' + '\n'
 
     draw_line = False
-    for performance in program:
+    for performance in performances:
         if draw_line:
             tikzstr += r"&&\\" + '\n'
             tikzstr += (r"\draw (-{0}cm,0) -- ({0}cm,0); & \draw (-{1}cm,0) -- ({1}cm,0); "
@@ -132,15 +132,15 @@ for ipart, part in enumerate(program_full):
 
             tikzstr += r"}&{"
 
-            for performer in performance['performers'][np:nl]:
+            for performer in performance['ensemble'][np:nl]:
                 tikzstr += r"{name} ({instrument})\\".format(**performer)
 
             tikzstr += r"}\\" + '\n'
 
             np = nl
 
-        if np < len(performance['performers']):
-            for performer in performance['performers'][np:]:
+        if np < len(performance['ensemble']):
+            for performer in performance['ensemble'][np:]:
                 tikzstr += r"&&{name} ({instrument})\\".format(**performer)
 
     tikzstr += r'};' + '\n'
