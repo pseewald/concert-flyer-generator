@@ -122,13 +122,13 @@ for ipart, part in enumerate(program_full):
                 if 'arr' in composer:
                     tikzstr += r"(arr. {arr}) ".format(**composer)
 
-            tikzstr += r"&  {{{title}\\".format(**piece)
+            tikzstr += r"&  {{{}\\".format(piece['title'][0].capitalize() + piece['title'][1:])
             nl += 1
 
             if 'movements' in piece:
                 for movement in piece['movements']:
                     nl += 1
-                    tikzstr += r"\quad {}\\".format(movement)
+                    tikzstr += r"\quad {}\\".format(movement[0].capitalize() + movement[1:])
 
             tikzstr += r"}&{"
 
@@ -141,7 +141,7 @@ for ipart, part in enumerate(program_full):
 
         if np < len(performance['ensemble']):
             for performer in performance['ensemble'][np:]:
-                tikzstr += r"&&{name} ({instrument})\\".format(**performer)
+                tikzstr += r"&&{} ({})\\".format(performer['name'],performer['instrument'].lower())
 
     tikzstr += r'};' + '\n'
 
