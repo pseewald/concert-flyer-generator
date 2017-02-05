@@ -12,7 +12,7 @@
                 [
                     {
                         "composer": {"name": "F. Schubert", "yob": "1797", "yod": "1828"},
-                        "name": "Impromptus D 899, op. 90",
+                        "title": "Impromptus D 899, op. 90",
                         "movements":
                         [
                             "No. 1 in C Minor, Allegro molto moderato",
@@ -30,7 +30,7 @@
                 [
                     {
                         "composer": {"name": "W. A. Mozart", "yob": "1756", "yod": "1791"},
-                        "name": "Fantasia No. 3 in D Minor, KV 397"
+                        "title": "Fantasia No. 3 in D Minor, KV 397"
                     }
                 ]
             },
@@ -44,7 +44,7 @@
                 [
                     {
                         "composer": {"name": "L. v. Beethoven", "yob": "1770", "yod": "1827"},
-                        "name": "Spring Sonata for Violin in F Major, op. 24 no. 5",
+                        "title": "Spring Sonata for Violin in F Major, op. 24 no. 5",
                         "movements":
                         [
                             "4. Allegro ma non troppo"
@@ -60,7 +60,7 @@
                 "pieces":
                 [
                     {
-                        "name": "Indian classical music - improvisations"
+                        "title": "Indian classical music - improvisations"
                     }
                 ]
             },
@@ -73,15 +73,15 @@
                 [
                     {
                         "composer": {"name": "Fun", "arr": "N. Wright"},
-                        "name": "Some Nights"
+                        "title": "Some Nights"
                     },
                     {
                         "composer": {"name": "Pentatonix"},
-                        "name": "Mary, Did You Know?"
+                        "title": "Mary, Did You Know?"
                     },
                     {
                         "composer": {"name": "R. Williams", "arr": "BaSix"},
-                        "name": "Angels"
+                        "title": "Angels"
                     }
                 ]
             }
@@ -100,10 +100,10 @@
                 [
                     {
                         "composer": {"name": "F. Chopin", "yob": "1810", "yod": "1849"},
-                        "name": "Fantaisie Impromptu"
+                        "title": "Fantaisie Impromptu"
                     },
                     {
-                        "name": "Etude op. 10, no. 12"
+                        "title": "Etude op. 10, no. 12"
                     }
                 ]
             },
@@ -116,7 +116,7 @@
                 [
                     {
                         "composer": {"name": "F. Liszt", "yob": "1811", "yod": "1886"},
-                        "name": "Liebestraum No. 3, S. 541"
+                        "title": "Liebestraum No. 3, S. 541"
                     }
                 ]
             },
@@ -129,7 +129,7 @@
                 [
                     {
                         "composer": {"name": "F. Liszt", "yob": "1811", "yod": "1886"},
-                        "name": "Hungarian Rhapsody No. 2 in C-sharp Minor"
+                        "title": "Hungarian Rhapsody No. 2 in C-sharp Minor"
                     }
                 ]
             },
@@ -142,7 +142,7 @@
                 [
                     {
                         "composer": {"name": "C. M. v. Weber", "yob": "1786", "yod": "1826", "arr": "K. Tausig"},
-                        "name": "Invitation to the Dance, op. 65"
+                        "title": "Invitation to the Dance, op. 65"
                     }
                 ]
             },
@@ -156,7 +156,7 @@
                 "pieces":
                 [
                     {
-                        "name": "Acoustic covers from popular rock songs"
+                        "title": "Acoustic covers from popular rock songs"
                     }
                 ]
             }
@@ -175,7 +175,7 @@
                 [
                     {
                         "composer": {"name": "L. v. Beethoven", "yob": "1770", "yod": "1827"},
-                        "name": "Piano Sonata in E Major, op. 109",
+                        "title": "Piano Sonata in E Major, op. 109",
                         "movements":
                         [
                             "Vivace, ma non troppo",
@@ -193,7 +193,7 @@
                 [
                     {
                         "composer": {"name": "F. Chopin", "yob": "1810", "yod": "1849"},
-                        "name": "Ballade 2 in F Major, op. 38"
+                        "title": "Ballade 2 in F Major, op. 38"
                     }
                 ]
             },
@@ -207,10 +207,10 @@
                 [
                     {
                         "composer": {"name": "R. Wagner", "yob": "1813", "yod": "1883"},
-                        "name": "Lohengrin: \"Mein Lieber Schwan\", WWV 75"
+                        "title": "Lohengrin: \"Mein Lieber Schwan\", WWV 75"
                     },
                     {
-                        "name": "Wesendonck Lieder: \"Schmerzen\", \"Träume\", WWV 91"
+                        "title": "Wesendonck Lieder: \"Schmerzen\", \"Träume\", WWV 91"
                     }
                 ]
             },
@@ -223,10 +223,10 @@
                 [
                     {
                         "composer": {"name": "F. Chopin", "yob": "1810", "yod": "1849"},
-                        "name": "Prelude in C-sharp Minor, op. 45"
+                        "title": "Prelude in C-sharp Minor, op. 45"
                     },
                     {
-                        "name": "Mazurkas, op. 30, no. 3 (D-flat Major) & no. 4 (C-sharp Minor)"
+                        "title": "Mazurkas, op. 30, no. 3 (D-flat Major) & no. 4 (C-sharp Minor)"
                     }
                 ]
             },
@@ -239,7 +239,7 @@
                 [
                     {
                         "composer": {"name": "F. Chopin", "yob": "1810", "yod": "1849"},
-                        "name": "Barcarolle, op. 60"
+                        "title": "Barcarolle, op. 60"
                     }
                 ]
             },
@@ -254,7 +254,7 @@
                 [
                     {
                         "composer": {"name": "L. Spohr", "yob": "1784", "yod": "1859"},
-                        "name": "6 Deutsche Lieder, op. 103",
+                        "title": "6 Deutsche Lieder, op. 103",
                         "movements":
                         [
                             "1. Sei Still mein Herz",

@@ -57,9 +57,9 @@
                                 "type": "object",
                                 "properties":
                                 {
-                                    "name":
+                                    "title":
                                     {
-                                        "description": "name of the piece",
+                                        "description": "title of the piece",
                                         "type": "string"
                                     },
                                     "composer":
@@ -104,7 +104,7 @@
                                         "uniqueItems": true
                                     }
                                 },
-                                "required": ["name"]
+                                "required": ["title"]
                             },
                             "minItems": 1,
                             "uniqueItems": true

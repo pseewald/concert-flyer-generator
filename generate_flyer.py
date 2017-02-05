@@ -122,7 +122,7 @@ for ipart, part in enumerate(program_full):
                 if 'arr' in composer:
                     tikzstr += r"(arr. {arr}) ".format(**composer)
 
-            tikzstr += r"&  {{{name}\\".format(**piece)
+            tikzstr += r"&  {{{title}\\".format(**piece)
             nl += 1
 
             if 'movements' in piece:
