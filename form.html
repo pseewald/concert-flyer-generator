@@ -1,0 +1,224 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link type="text/css" rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+    <link type="text/css" href="http://code.cloudcms.com/alpaca/1.5.22/bootstrap/alpaca.min.css" rel="stylesheet" />
+
+    <link href="https://cdn.rawgit.com/josdejong/jsoneditor/master/dist/jsoneditor.min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.rawgit.com/josdejong/jsoneditor/master/dist/jsoneditor.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js">
+    </script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="http://code.cloudcms.com/alpaca/1.5.22/bootstrap/alpaca.min.js"></script>
+    <link href="http://code.cloudcms.com/alpaca/1.5.22/bootstrap/alpaca.min.css" rel="stylesheet" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js"></script>
+
+    <style type="text/css">
+        body {
+            width: 600px;
+            font: 11pt sans-serif;
+        }
+        
+        #jsoneditor {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="form"></div>
+    <div id="jsoneditor"></div>
+    <script type="text/javascript">
+        var editor;
+        var schema = "https://raw.githubusercontent.com/pseewald/concert-flyer-generator/master/program.schema.json"
+
+        $(document).ready(function() {
+            $("#form").alpaca({
+                "schemaSource": schema,
+                "options": {
+                    "form": {
+                        "attributes": {
+                            "action": "http://httpbin.org/post",
+                            "method": "post"
+                        },
+                        "buttons": {
+                            "submit": {
+                                "title": "Open in Editor",
+                                "click": function() {
+                                    var val = this.getValue();
+                                    if (this.isValid(true)) {
+                                        var container = document.getElementById('jsoneditor');
+                                        var json = val;
+
+                                        var options = {};
+                                        // how to get external schema for editor?
+                                        //var options = {
+                                        //    schema: 
+                                        //};
+
+                                        if (typeof editor !== 'undefined') {
+                                            editor.destroy();
+                                        }
+
+                                        editor = new JSONEditor(container, options, json); // this is bad (implicit)
+                                        var control = $("#form").alpaca("get");
+                                        control.form.getButtonEl("save").click(function() {
+
+                                            // Save Dialog
+                                            fname = window.prompt("Save as...");
+
+                                            // Check json extension in file name
+                                            if (fname.indexOf(".") == -1) {
+                                                fname = fname + ".json";
+                                            } else {
+                                                if (fname.split('.').pop().toLowerCase() == "json") {
+                                                    // Nothing to do
+                                                } else {
+                                                    fname = fname.split('.')[0] + ".json";
+                                                }
+                                            }
+                                            var blob = new Blob([editor.getText()], {
+                                                type: 'application/json;charset=utf-8'
+                                            });
+                                            saveAs(blob, fname);
+
+                                        });
+
+                                    } else {
+                                        alert("Invalid value: " + JSON.stringify(val, null, "  "));
+                                    }
+                                }
+                            },
+                            "save": {
+                                "type": "button",
+                                "value": "Save to file",
+                                "click": function() {
+                                    if (typeof editor == 'undefined') {
+                                        alert("You need to open in editor first");
+                                    }
+                                }
+                                //"styles": "btn btn-primary"
+                            },
+                            "load": {
+                                "type": "button",
+                                "value": "Load from file",
+                                "click": function() {
+                                    alert("Not yet implemented, how to do this?");
+                                }
+                            }
+
+                        }
+                    },
+                    "toolbarSticky": true,
+                    "hideToolbarWithChildren": false,
+                    "actionbar": {
+                        "actions": [{
+                            "action": "add",
+                            "enabled": false
+                        }]
+                    },
+                    "helper": ["1. Fill in the program (start with 'Add New Item')", "2. Click on 'Open in Editor' and do last changes (if needed)", "3. Click on 'Save to File'", '👉 <a href=https://polybox.ethz.ch/index.php/s/kD0WOisjwlhzXGW>Music Terminology</a> 👈'],
+                    "items": {
+                        "fields": {
+                            "time": {
+                                "helper": "example: 6:00 PM"
+                            },
+                            "performances": {
+                                "toolbarSticky": true,
+                                "hideToolbarWithChildren": false,
+                                "actionbar": {
+                                    "actions": [{
+                                        "action": "add",
+                                        "enabled": false
+                                    }]
+                                },
+                                "items": {
+                                    "fields": {
+                                        "ensemble": {
+                                            "toolbarSticky": true,
+                                            "hideToolbarWithChildren": false,
+                                            "actionbar": {
+                                                "actions": [{
+                                                    "action": "add",
+                                                    "enabled": false
+                                                }]
+                                            },
+                                            "helper": "use ensemble name instead of individual members if more than 5 people",
+
+                                            "items": {
+                                                "fields": {
+                                                    "name": {
+                                                        "helper": "full name, e.g. Michael Jackson"
+                                                    },
+                                                    "instrument": {
+                                                        "helper": "if more than one instrument: first instrument, second instrument, ..."
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "pieces": {
+                                            "toolbarSticky": true,
+                                            "hideToolbarWithChildren": false,
+                                            "actionbar": {
+                                                "actions": [{
+                                                    "action": "add",
+                                                    "enabled": false
+                                                }]
+                                            },
+
+                                            "items": {
+                                                "fields": {
+                                                    "title": {
+                                                        "helper": "example: Piano Sonata in E Major, op. 109"
+                                                    },
+                                                    "composer": {
+                                                        "fields": {
+                                                            "name": {
+                                                                "helper": "example: F. Schubert"
+                                                            },
+                                                            "yob": {
+                                                                //"helper": "yob"
+                                                            },
+                                                            "yod": {
+                                                                //"helper": "yod"
+                                                            },
+                                                            "arr": {
+                                                                //"helper": "arr"
+                                                            }
+                                                        }
+                                                    },
+                                                    "movements": {
+                                                        "toolbarSticky": true,
+                                                        "hideToolbarWithChildren": false,
+                                                        "actionbar": {
+                                                            "actions": [{
+                                                                "action": "add",
+                                                                "enabled": false
+                                                            }]
+                                                        },
+
+                                                        "items": {
+                                                            "helper": "example: 4. Allegro ma non troppo"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
