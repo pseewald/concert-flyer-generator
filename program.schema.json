@@ -51,8 +51,7 @@
                                 "required": ["name", "instrument"]
                             },
                             "minItems": 1,
-                            "maxItems": 5,
-                            "uniqueItems": true
+                            "maxItems": 5
                         },
                         "pieces":
                         {
@@ -123,19 +122,16 @@
                                 },
                                 "required": ["title"]
                             },
-                            "minItems": 1,
-                            "uniqueItems": true
+                            "minItems": 1
                         }
                     },
                     "required": ["ensemble", "pieces"]
                 },
-                "minItems": 1,
-                "uniqueItems": true
+                "minItems": 1
             }
         },
         "required": ["time", "performances"]
     },
     "minItems": 1,
-    "maxItems": 3,
-    "uniqueItems": true
+    "maxItems": 3
 }
