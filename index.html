@@ -43,180 +43,10 @@
     <script type="text/javascript">
         var editor;
         var schema = "https://raw.githubusercontent.com/pseewald/concert-flyer-generator/master/program.schema.json"
-
-        $(document).ready(function() {
-            $("#form").alpaca({
+        var form = function (data) {
+            return {
                 "schemaSource": schema,
-                "options": {
-                    "form": {
-                        "buttons": {
-                            "submit": {
-                                "title": "Open in Editor",
-                                "click": function() {
-                                    var val = this.getValue();
-                                    if (this.isValid(true)) {
-                                        var container = document.getElementById('jsoneditor');
-                                        var json = val;
-
-                                        var options = {};
-                                        // how to get external schema for editor?
-                                        //var options = {
-                                        //    schema:
-                                        //};
-
-                                        if (typeof editor !== 'undefined') {
-                                            editor.destroy();
-                                            editor = new JSONEditor(container, options, json);
-                                        } else {
-                                            editor = new JSONEditor(container, options, json);
-                                            var control = $("#form").alpaca("get");
-
-                                            control.form.getButtonEl("save").click(function() {
-
-                                                // Save Dialog
-                                                fname = window.prompt("Save as...");
-
-                                                // Check json extension in file name
-                                                if (fname.indexOf(".") == -1) {
-                                                    fname = fname + ".json";
-                                                } else {
-                                                    if (fname.split('.').pop().toLowerCase() == "json") {
-                                                        // Nothing to do
-                                                    } else {
-                                                        fname = fname.split('.')[0] + ".json";
-                                                    }
-                                                }
-                                                var blob = new Blob([editor.getText()], {
-                                                    type: 'application/json;charset=utf-8'
-                                                });
-                                                saveAs(blob, fname);
-
-                                            });
-                                        }
-
-
-
-                                    } else {
-                                        alert("Invalid value: " + JSON.stringify(val, null, "  "));
-                                    }
-                                }
-                            },
-                            "save": {
-                                "type": "button",
-                                "value": "Save to file",
-                                "click": function() {
-                                    if (typeof editor == 'undefined') {
-                                        alert("You need to open in editor first");
-                                    }
-                                }
-                                //"styles": "btn btn-primary"
-                            },
-                            "load": {
-                                "type": "button",
-                                "value": "Load from file",
-                                "click": function() {
-
-                                    //var control = $("#form").alpaca("get");
-                                    //control.setValue("")
-                                    // Load a JSON document
-
-
-
-                                }
-                            }
-
-                        }
-                    },
-                    "toolbarSticky": true,
-                    "hideToolbarWithChildren": true,
-                    "helper": ["1. Fill in the program (start with 'Add New Item')", "2. Click on 'Open in Editor' and check program (edit if needed)", "3. Click on 'Save to File'", '👉 <a href=https://polybox.ethz.ch/index.php/s/kD0WOisjwlhzXGW/download target="_newtab">Music Terminology</a> 👈'],
-                    "items": {
-                        "fields": {
-                            "time": {
-                                "helper": "example: 6:00 PM"
-                            },
-                            "performances": {
-                                "toolbarSticky": true,
-                                "hideToolbarWithChildren": true,
-                                "items": {
-                                    "fields": {
-                                        "ensemble": {
-                                            "toolbarSticky": true,
-                                            "hideToolbarWithChildren": true,
-                                            "helper": "use ensemble name instead of individual members if more than 5 people",
-
-                                            "items": {
-                                                "fields": {
-                                                    "name": {
-                                                        //"helper": "name"
-                                                    },
-                                                    "instrument": {
-                                                        "helper": "if more than one instrument: first instrument, second instrument, ..."
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        "pieces": {
-                                            "toolbarSticky": true,
-                                            "hideToolbarWithChildren": true,
-
-                                            "items": {
-                                                "fields": {
-                                                    "title": {
-                                                        "helper": "example: Piano Sonata in E Major, op. 109"
-                                                    },
-                                                    "composer": {
-                                                        "fields": {
-                                                            "name": {
-                                                                "helper": "example: F. Schubert"
-                                                            },
-                                                            "yob": {
-                                                                //"helper": "yob"
-                                                            },
-                                                            "yod": {
-                                                                //"helper": "yod"
-                                                            },
-                                                            "arr": {
-                                                                //"helper": "arr"
-                                                            }
-                                                        }
-                                                    },
-                                                    "movements": {
-                                                        "toolbarSticky": true,
-                                                        "hideToolbarWithChildren": true,
-                                                        "items": {
-                                                            "helper": ["example: 4. Allegro ma non troppo", "write on one line (movement 1, movement 2, ...) if many movements"]
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                    }
-                },
-                "postRender": function(control) {
-                    if (control.form) {
-                        control.form.registerSubmitHandler(function (e) {
-                            control.form.getButtonEl('submit').click();
-                            return false;
-                        })
-                    };
-                }
-            });
-        });
-
-        FileReaderJS.setupInput(document.getElementById('loadDocument'), {
-          readAsDefault: 'Text',
-          on: {
-            load: function (event, file) {
-            $("#form").alpaca("destroy");
-
-            $("#form").alpaca({
-                "schemaSource": schema,
-                "dataSource" : event.target.result,
+                "dataSource" : data, //event.target.result,
                 "options": {
                     "form": {
                         "buttons": {
@@ -368,7 +198,20 @@
                         })
                     };
                 }
-            });
+            };
+        };
+
+        $(document).ready(function() {
+            $("#form").alpaca(form())        });
+
+        FileReaderJS.setupInput(document.getElementById('loadDocument'), {
+          readAsDefault: 'Text',
+          on: {
+            load: function (event, file) {
+                $("#form").alpaca("destroy");
+                $("#form").alpaca(
+                    form(event.target.result)
+                );
             }
           }
         });
