@@ -43,10 +43,6 @@
                 "schemaSource": schema,
                 "options": {
                     "form": {
-                        "attributes": {
-                            "action": "http://httpbin.org/post",
-                            "method": "post"
-                        },
                         "buttons": {
                             "submit": {
                                 "title": "Open in Editor",
@@ -215,6 +211,14 @@
                             }
                         },
                     }
+                },
+                "postRender": function(control) {
+                    if (control.form) {
+                        control.form.registerSubmitHandler(function (e) {
+                            control.form.getButtonEl('submit').click();
+                            return false;
+                        })
+                    };
                 }
             });
         });
