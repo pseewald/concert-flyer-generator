@@ -34,11 +34,16 @@
 
 <body>
     <div id="form"></div>
-<p>
-  Load from File: <input type="file" id="loadDocument" value="Load"/>
-</p>
-
+    <p>
+      Load from File: <input type="file" id="loadDocument" value="Load"/>
+    </p>
+    
     <div id="jsoneditor"></div>
+    
+    <p id="savetext" hidden>
+      Save to File: <input type="button" id="saveDocument" value="Save"/>
+    </p>
+
 
     <script type="text/javascript">
         var editor;
@@ -46,7 +51,7 @@
         var form = function (data) {
             return {
                 "schemaSource": schema,
-                "dataSource" : data, //event.target.result,
+                "dataSource" : data,
                 "options": {
                     "form": {
                         "buttons": {
@@ -58,59 +63,40 @@
                                         var container = document.getElementById('jsoneditor');
                                         var json = val;
 
-                                        var options = {};
-                                        // how to get external schema for editor?
-                                        //var options = {
-                                        //    schema:
-                                        //};
+                                        var options = {}; // FIXME: how to get schema into options?
+
+                                        $("#savetext").show();
 
                                         if (typeof editor !== 'undefined') {
                                             editor.destroy();
                                             editor = new JSONEditor(container, options, json);
                                         } else {
                                             editor = new JSONEditor(container, options, json);
-                                            var control = $("#form").alpaca("get");
+                                            document.getElementById('saveDocument').onclick = function () {
 
-                                            control.form.getButtonEl("save").click(function() {
+                                              // Save Dialog
+                                              fname = window.prompt("Save as...");
 
-                                                // Save Dialog
-                                                fname = window.prompt("Save as...");
-                                                if(fname == null) { return; }
+                                              if(fname == null) { return; }
 
-                                                // Check json extension in file name
-                                                if (fname.indexOf(".") == -1) {
-                                                    fname = fname + ".json";
-                                                } else {
-                                                    if (fname.split('.').pop().toLowerCase() == "json") {
-                                                        // Nothing to do
-                                                    } else {
-                                                        fname = fname.split('.')[0] + ".json";
-                                                    }
+                                              // Check json extension in file name
+                                              if(fname.indexOf(".")==-1){
+                                                fname = fname + ".json";
+                                              }else{
+                                                if(fname.split('.').pop().toLowerCase() == "json"){
+                                                  // Nothing to do
+                                                }else{
+                                                  fname = fname.split('.')[0] + ".json";
                                                 }
-                                                var blob = new Blob([editor.getText()], {
-                                                    type: 'application/json;charset=utf-8'
-                                                });
-                                                saveAs(blob, fname);
-
-                                            });
+                                              } 
+                                              var blob = new Blob([editor.getText()], {type: 'application/json;charset=utf-8'});
+                                              saveAs(blob, fname);
+                                            };
                                         }
-
-
-
                                     } else {
                                         alert("Invalid value: " + JSON.stringify(val, null, "  "));
                                     }
                                 }
-                            },
-                            "save": {
-                                "type": "button",
-                                "value": "Save to file",
-                                "click": function() {
-                                    if (typeof editor == 'undefined') {
-                                        alert("You need to open in editor first");
-                                    }
-                                }
-                                //"styles": "btn btn-primary"
                             }
                         }
                     },
@@ -195,13 +181,19 @@
         };
 
         $(document).ready(function() {
-            $("#form").alpaca(form())        });
+            $("#form").alpaca(form()) });
 
         FileReaderJS.setupInput(document.getElementById('loadDocument'), {
           readAsDefault: 'Text',
           on: {
             load: function (event, file) {
                 $("#form").alpaca("destroy");
+                $("#savetext").hide();
+
+                if (typeof editor !== 'undefined') {
+                    editor.destroy();
+                }
+
                 $("#form").alpaca(
                     form(event.target.result)
                 );
