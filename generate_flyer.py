@@ -51,9 +51,9 @@ else:
 config_defaults={'font': 'Helvetica',
                  'background color': 'blue!20',
                  'background opacity': '1',
-                 'horizontal offset': 1,
-                 'vertical offset': 1,
-                 'node spacing': 0.5,
+                 'horizontal offset': '1',
+                 'vertical offset': '1',
+                 'node spacing': '0.5',
                  'column width': '[6.5, 11.4, 6.5]',
                  'column spacing':'0.3',
                  'row spacing': '0.05',
@@ -63,8 +63,11 @@ config_defaults={'font': 'Helvetica',
 
 config = ConfigParser.SafeConfigParser(config_defaults)
 
-with io.open("config", 'r', encoding='utf-8') as configfile:
-    config.readfp(io.StringIO("[_]\n" + configfile.read()))
+try:
+    with io.open("config", 'r', encoding='utf-8') as configfile:
+        config.readfp(io.StringIO("[_]\n" + configfile.read()))
+except IOError:
+    config.readfp(io.StringIO("[_]"))
 
 font = config.get('_', 'font')
 bgcol = config.get('_', 'background color')

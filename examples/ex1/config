@@ -1,7 +1,7 @@
 font: Montserrat
 background color: yellow!20
 horizontal offset: 1
-vertical offset: %(horizontal offset)s
+vertical offset: 0.75
 node spacing: 0.5
 column width: [6.5, 11.4, 6.5]
 column spacing: 0.3
