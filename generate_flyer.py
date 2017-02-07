@@ -5,7 +5,7 @@ from __future__ import (absolute_import, division,
                         print_function, unicode_literals)
 from builtins import *
 
-import argparse
+import argparse, ConfigParser
 
 import io
 import os
@@ -20,14 +20,19 @@ import latex
 from latex.jinja2 import make_env
 from latex.build import LatexMkBuilder
 
-parser = argparse.ArgumentParser(description='Generate program flyer for concert.', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-
+# command line arguments
+parser = argparse.ArgumentParser(description='Generate program flyer for concert.')
 parser.add_argument("json", type=str, help="filename of program in json format (in).")
 parser.add_argument("--pdf", type=str, help="filename of pdf (out). By default, use the base name of json input. Use '-' to suppress pdf output.")
 parser.add_argument("--latex", type=str, help="filename of latex file (out). By default, no latex file is created.")
 parser.add_argument("--background", type=str, help="filename of background (in). By default, a uniformly colored background is created")
 
+if len(sys.argv)==1:
+    parser.print_help()
+    sys.exit(1)
+
 args = parser.parse_args()
+bgpic = args.background
 
 build_latex = False
 if args.latex:
@@ -41,21 +46,52 @@ elif args.pdf == '-':
 else:
     build_pdf = True
 
-bgpic = args.background
+# configuration file
+
+config_defaults={'font': 'Helvetica',
+                 'background color': 'blue!20',
+                 'background opacity': '1',
+                 'horizontal offset': 1,
+                 'vertical offset': 1,
+                 'node spacing': 0.5,
+                 'column width': '[6.5, 11.4, 6.5]',
+                 'column spacing':'0.3',
+                 'row spacing': '0.05',
+                 'line spacing': '0.4',
+                 'program box margin': '0.3',
+                 'time box margin': '0.3'}
+
+config = ConfigParser.SafeConfigParser(config_defaults)
+
+with io.open("config", 'r', encoding='utf-8') as configfile:
+    config.readfp(io.StringIO("[_]\n" + configfile.read()))
+
+font = config.get('_', 'font')
+bgcol = config.get('_', 'background color')
+hoff = config.getfloat('_', 'horizontal offset')
+voff = config.getfloat('_', 'vertical offset')
+nodesep = config.getfloat('_', 'node spacing')
+colw = json.loads(config.get('_', 'column width'))
+colsep = config.getfloat('_', 'column spacing')
+rowsep = config.getfloat('_', 'row spacing')
+linespacing = config.getfloat('_', 'line spacing')
+pbox_margin = config.getfloat('_', 'program box margin')
+tbox_margin = config.getfloat('_', 'time box margin')
+bgopac = config.getfloat('_', 'background opacity')
 
 ##### May need configuration (everything in cm) #####
-font = 'Montserrat'   # Font
-hoff = 1.             # horizontal offset of tikzpicture
-voff = hoff           # vertical offset of tikzpicture
-nodesep = 0.5            # separation between matrices and other nodes
-colw = [6.5, 11.4, 6.5] # length of the 3 columns
-colsep = 0.3            # separation between nodes in x direction
-rowsep = 0.03           # separation between nodes in y direction
-linespacing = 0.3     # line spacing (must be adapted to rowsep)
-tbox_margin = 0.3           # separation for time node
-pbox_margin = 0.3     # program box margin
-bgcol = r'yellow!20'  # background color (if bgpic empty)
-bgopac = 1.          # background opacity
+#font = 'Montserrat'   # Font
+#hoff = 1.             # horizontal offset of tikzpicture
+#voff = hoff           # vertical offset of tikzpicture
+#nodesep = 0.5            # separation between matrices and other nodes
+#colw = [6.5, 11.4, 6.5] # length of the 3 columns
+#colsep = 0.3            # separation between nodes in x direction
+#rowsep = 0.03           # separation between nodes in y direction
+#linespacing = 0.3     # line spacing (must be adapted to rowsep)
+#tbox_margin = 0.3           # separation for time node
+#pbox_margin = 0.3     # program box margin
+#bgcol = r'yellow!20'  # background color (if bgpic empty)
+#bgopac = 1.          # background opacity
 ##### end configuration #####
 
 mxsep = max(pbox_margin - colsep, 0.)  # separation for matrix border

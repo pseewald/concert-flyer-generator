@@ -1,0 +1,11 @@
+font: Montserrat
+background color: yellow!20
+horizontal offset: 1
+vertical offset: %(horizontal offset)s
+node spacing: 0.5
+column width: [6.5, 11.4, 6.5]
+column spacing: 0.3
+row spacing: 0.03
+line spacing: 0.3
+program box margin: 0.3
+time box margin: %(program box margin)s
