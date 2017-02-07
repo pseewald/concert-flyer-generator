@@ -5,6 +5,8 @@ from __future__ import (absolute_import, division,
                         print_function, unicode_literals)
 from builtins import *
 
+import argparse
+
 import io
 import os
 import itertools
@@ -18,6 +20,29 @@ import latex
 from latex.jinja2 import make_env
 from latex.build import LatexMkBuilder
 
+parser = argparse.ArgumentParser(description='Generate program flyer for concert.', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+parser.add_argument("json", type=str, help="filename of program in json format (in).")
+parser.add_argument("--pdf", type=str, help="filename of pdf (out). By default, use the base name of json input. Use '-' to suppress pdf output.")
+parser.add_argument("--latex", type=str, help="filename of latex file (out). By default, no latex file is created.")
+parser.add_argument("--background", type=str, help="filename of background (in). By default, a uniformly colored background is created")
+
+args = parser.parse_args()
+
+build_latex = False
+if args.latex:
+    build_latex = True
+
+if args.pdf is None:
+    args.pdf = os.path.splitext(args.json)[0] + '.pdf'
+    build_pdf = True
+elif args.pdf == '-':
+    build_pdf = False
+else:
+    build_pdf = True
+
+bgpic = args.background
+
 ##### May need configuration (everything in cm) #####
 font = 'Montserrat'   # Font
 hoff = 1.             # horizontal offset of tikzpicture
@@ -29,7 +54,6 @@ rowsep = 0.03           # separation between nodes in y direction
 linespacing = 0.3     # line spacing (must be adapted to rowsep)
 tbox_margin = 0.3           # separation for time node
 pbox_margin = 0.3     # program box margin
-bgpic = r''           # background picture (filename)
 bgcol = r'yellow!20'  # background color (if bgpic empty)
 bgopac = 1.          # background opacity
 ##### end configuration #####
@@ -38,13 +62,11 @@ mxsep = max(pbox_margin - colsep, 0.)  # separation for matrix border
 mysep = max(pbox_margin - rowsep, 0.)
 
 # what to build
-generate_latex = False
-build_pdf = True
 
-with io.open("program.schema.json", 'r', encoding='utf-8') as infile:
+with io.open("program.schema.json", 'r', encoding='utf-8') as infile: # FIXME: rename to schema.json
     schema = json.loads(infile.read())
 
-with io.open("program.json", 'r', encoding='utf-8') as infile:
+with io.open(args.json, 'r', encoding='utf-8') as infile:
     program_full = json.loads(infile.read())
 
 jsonschema.validate(program_full, schema)
@@ -158,12 +180,14 @@ env = make_env(loader=FileSystemLoader('.'))
 builder = LatexMkBuilder(pdflatex='xelatex')
 
 # generate background
-if not bgpic:
+if not bgpic and build_pdf:
     tpl = env.get_template('background.tex')
 
     pdf = builder.build_pdf(tpl.render(color=bgcol))
     pdf.save_to("background.pdf")
-    bgpic = "background.pdf"
+    bgpic = 'background.pdf'
+else:
+    bgpic = 'background.pdf'
 
 # generate flyer
 tpl = env.get_template('flyer.tex')
@@ -179,11 +203,12 @@ inst_latex = tpl.render(font=font,
                         tikzstr=tikzstr,
                         linespacing=linespacing)
 
-if generate_latex:
-    with io.open("flyer_inst.tex", 'w', encoding='utf-8') as outfile:
+if build_latex:
+    with io.open(args.latex, 'w', encoding='utf-8') as outfile:
         outfile.write(inst_latex)
 
 if build_pdf:
     current_dir = os.path.abspath(os.path.dirname(__file__))
     pdf = builder.build_pdf(inst_latex, texinputs=[current_dir, ''])
-    pdf.save_to("flyer.pdf")
+    pdf.save_to(args.pdf)
+
