@@ -1,6 +1,8 @@
 # Concert Flyer Generator
 
-This is a flyer generator intended to provide an automatic solution for print ready program flyers of recurring events. It is specifically targeting classical concerts and could be modified for other events. It uses a web form to collect data in json format and a python script to generate a pdf flyer from json using latex and tikz.
+This is a flyer generator for print ready program flyers. It is used as an automatic solution to quickly create flyers for recurring events.
+
+It is specifically targeting classical concerts but could be modified for other events. It uses a web form to collect data in json format and a python script to generate a pdf flyer from json using latex and tikz.
 
 ## Usage
 1. go to the [web form](https://pseewald.github.io/concert-flyer-generator/) to specify the concert program.
