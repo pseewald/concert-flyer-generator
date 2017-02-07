@@ -102,7 +102,7 @@ mysep = max(pbox_margin - rowsep, 0.)
 
 # what to build
 
-with io.open("program.schema.json", 'r', encoding='utf-8') as infile: # FIXME: rename to schema.json
+with io.open("schema.json", 'r', encoding='utf-8') as infile:
     schema = json.loads(infile.read())
 
 with io.open(args.json, 'r', encoding='utf-8') as infile:
