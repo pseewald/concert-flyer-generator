@@ -22,19 +22,20 @@ from latex.build import LatexMkBuilder
 font = 'Montserrat'   # Font
 hoff = 1.             # horizontal offset of tikzpicture
 voff = hoff           # vertical offset of tikzpicture
-vsep = 0.5            # separation between matrices and other nodes
+nodesep = 0.5            # separation between matrices and other nodes
 colw = [6.5, 11.4, 6.5] # length of the 3 columns
-xsep = 0.3            # separation between nodes in x direction
-ysep = 0.03           # separation between nodes in y direction
-linespacing = 0.3     # line spacing (must be adapted to ysep)
-mtsep = 0.3           # separation for time node
+colsep = 0.3            # separation between nodes in x direction
+rowsep = 0.03           # separation between nodes in y direction
+linespacing = 0.3     # line spacing (must be adapted to rowsep)
+tbox_margin = 0.3           # separation for time node
+pbox_margin = 0.3     # program box margin
 bgpic = r''           # background picture (filename)
 bgcol = r'yellow!20'  # background color (if bgpic empty)
-bgopac = 1.0          # background opacity
+bgopac = 1.          # background opacity
 ##### end configuration #####
 
-mxsep = 0.3 - xsep  # separation for matrix border
-mysep = 0.3 - ysep
+mxsep = max(pbox_margin - colsep, 0.)  # separation for matrix border
+mysep = max(pbox_margin - rowsep, 0.)
 
 # what to build
 generate_latex = False
@@ -74,8 +75,8 @@ partftd = {
         r"0cm"],
     r"yshift": [
         r"-{}cm".format(voff),
-        r"-{}cm".format(vsep),
-        r"-{}cm".format(vsep)],
+        r"-{}cm".format(nodesep),
+        r"-{}cm".format(nodesep)],
     r"pos": [
         r"current page.north west",
         r"time 0.north |- part 0.south",
@@ -149,7 +150,7 @@ for ipart, part in enumerate(program_full):
                 r'(part {0}.south east) -- (part {0}.south west) -- cycle;').format(ipart) + '\n'
 
     tikzstr += r'\node (time {3}) [time, {0}={4}cm of part {3}.{1}, anchor = {2}] {{\textbf{{{5}}}}};'.format(
-        timeftd['pos'][ipart], timeftd['relpos'][ipart], timeftd['anchor'][ipart], ipart, vsep, time) + '\n'
+        timeftd['pos'][ipart], timeftd['relpos'][ipart], timeftd['anchor'][ipart], ipart, nodesep, time) + '\n'
 
 env = make_env(loader=FileSystemLoader('.'))
 
@@ -170,11 +171,11 @@ inst_latex = tpl.render(font=font,
                         bgopac=bgopac,
                         bgpic=bgpic,
                         colw=colw,
-                        xsep=xsep,
-                        ysep=ysep,
+                        colsep=colsep,
+                        rowsep=rowsep,
                         mxsep=mxsep,
                         mysep=mysep,
-                        mtsep=mtsep,
+                        tbox_margin=tbox_margin,
                         tikzstr=tikzstr,
                         linespacing=linespacing)
 
