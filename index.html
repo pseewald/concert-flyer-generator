@@ -26,7 +26,7 @@
 
         #jsoneditor {
             width: 100%;
-            height: 500px;
+            height: 1000px;
         }
     </style>
 
@@ -34,16 +34,16 @@
 
 <body>
     <div id="form"></div>
-    <p>
-      Load from File: <input type="file" id="loadDocument" value="Load"/>
+
+    <p id="loadtext">
+      Load JSON file: <input type="file" id="loadDocument" value="Load"/>
     </p>
     
     <div id="jsoneditor"></div>
     
     <p id="savetext" hidden>
-      Save to File: <input type="button" id="saveDocument" value="Save"/>
+      Save JSON File: <input type="button" id="saveDocument" value="Save"/>
     </p>
-
 
     <script type="text/javascript">
         var editor;
@@ -102,7 +102,7 @@
                     },
                     "toolbarSticky": true,
                     "hideToolbarWithChildren": true,
-                    "helper": ["1. Fill in the program (start with 'Add New Item')", "2. Click on 'Open in Editor' and check program (edit if needed)", "3. Click on 'Save to File'", '👉 <a href=https://polybox.ethz.ch/index.php/s/kD0WOisjwlhzXGW/download target="_newtab">Music Terminology</a> 👈'],
+                    "helper": ["1. Fill in the program (start with 'Add New Item' or 'Load JSON File')", "2. Click on 'Open in Editor' and check program (edit if needed)", "3. Click on 'Save JSON File'", '👉 <a href=https://polybox.ethz.ch/index.php/s/kD0WOisjwlhzXGW/download target="_newtab">Music Terminology</a> 👈'],
                     "items": {
                         "fields": {
                             "time": {
