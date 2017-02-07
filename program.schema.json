@@ -123,13 +123,12 @@
                             },
                             "minItems": 1
                         }
-                    },
-                    "required": ["ensemble", "pieces"]
+                    }
                 },
                 "minItems": 1
             }
         },
-        "required": ["time", "performances"]
+        "required": ["time"]
     },
     "minItems": 1,
     "maxItems": 3
