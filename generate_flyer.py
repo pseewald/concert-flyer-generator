@@ -26,6 +26,7 @@ parser.add_argument("json", type=str, help="filename of program in json format (
 parser.add_argument("--pdf", type=str, help="filename of pdf (out). By default, use the base name of json input. Use '-' to suppress pdf output.")
 parser.add_argument("--latex", type=str, help="filename of latex file (out). By default, no latex file is created.")
 parser.add_argument("--background", type=str, help="filename of background (in). By default, a uniformly colored background is created")
+parser.add_argument("--config", type=str, default='config', help="filename of config file (in) specifying formatting options. See file 'sample_config' for documentation")
 
 if len(sys.argv)==1:
     parser.print_help()
@@ -64,7 +65,7 @@ config_defaults={'font': 'Helvetica',
 config = ConfigParser.SafeConfigParser(config_defaults)
 
 try:
-    with io.open("config", 'r', encoding='utf-8') as configfile:
+    with io.open(args.config, 'r', encoding='utf-8') as configfile:
         config.readfp(io.StringIO("[_]\n" + configfile.read()))
 except IOError:
     config.readfp(io.StringIO("[_]"))
@@ -82,23 +83,11 @@ pbox_margin = config.getfloat('_', 'program box margin')
 tbox_margin = config.getfloat('_', 'time box margin')
 bgopac = config.getfloat('_', 'background opacity')
 
-##### May need configuration (everything in cm) #####
-#font = 'Montserrat'   # Font
-#hoff = 1.             # horizontal offset of tikzpicture
-#voff = hoff           # vertical offset of tikzpicture
-#nodesep = 0.5            # separation between matrices and other nodes
-#colw = [6.5, 11.4, 6.5] # length of the 3 columns
-#colsep = 0.3            # separation between nodes in x direction
-#rowsep = 0.03           # separation between nodes in y direction
-#linespacing = 0.3     # line spacing (must be adapted to rowsep)
-#tbox_margin = 0.3           # separation for time node
-#pbox_margin = 0.3     # program box margin
-#bgcol = r'yellow!20'  # background color (if bgpic empty)
-#bgopac = 1.          # background opacity
-##### end configuration #####
-
 mxsep = max(pbox_margin - colsep, 0.)  # separation for matrix border
 mysep = max(pbox_margin - rowsep, 0.)
+
+def key_in_dict(d, k):
+    return k in d and d[k]
 
 # what to build
 
@@ -172,22 +161,22 @@ for ipart, part in enumerate(program_full):
         draw_line = True
         [np, nl] = [0, 0]  # number of performers, line count
         for piece in performance['pieces']:
-            if 'composer' in piece:
+            if key_in_dict(piece, 'composer'):
                 composer = piece['composer']
 
                 tikzstr += r"{name} ".format(**composer)
-                if 'yod' in composer and 'yob' in composer:
+                if key_in_dict(composer, 'yod') and key_in_dict(composer, 'yob'):
                     tikzstr += r"({yob}-{yod}) ".format(**composer)
-                elif 'yob' in composer:
+                elif key_in_dict(composer, 'yob'):
                     tikzstr += r"(*{yob}) ".format(**composer)
 
-                if 'arr' in composer:
+                if key_in_dict(composer, 'arr'):
                     tikzstr += r"(arr. {arr}) ".format(**composer)
 
             tikzstr += r"&  {{{}\\".format(piece['title'][0].capitalize() + piece['title'][1:])
             nl += 1
 
-            if 'movements' in piece:
+            if key_in_dict(piece, 'movements'):
                 for movement in piece['movements']:
                     nl += 1
                     tikzstr += r"\quad {}\\".format(movement[0].capitalize() + movement[1:])
