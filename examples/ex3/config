@@ -1,0 +1,23 @@
+# This is a sample configuration
+# font installed on system
+font: Futura
+# background color (only used if no background picture)
+background color: yellow!20
+# horizontal offset of tikzpicture
+horizontal offset: 1
+# vertical offset of tikzpicture
+vertical offset: 2.5
+# separation between matrices and other nodes
+node spacing: 0.5
+# length of the 3 columns
+column width: [6.3, 11.8, 6.3]
+# separation between nodes in x direction
+column spacing: 0.3
+# separation between nodes in y direction
+row spacing: 0.035
+# line spacing (must be adapted to row spacing)
+line spacing: 0.4
+# program box margin
+program box margin: 0.3
+# separation for time node
+time box margin: %(program box margin)s

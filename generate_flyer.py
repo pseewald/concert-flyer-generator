@@ -214,7 +214,7 @@ if not bgpic and build_pdf:
     pdf = builder.build_pdf(tpl.render(color=bgcol))
     pdf.save_to("background.pdf")
     bgpic = 'background.pdf'
-else:
+elif not bgpic:
     bgpic = 'background.pdf'
 
 # generate flyer
