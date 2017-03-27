@@ -166,14 +166,14 @@ for ipart, part in enumerate(program_full):
 
                 tikzstr += r"{name} ".format(**composer)
                 if key_in_dict(composer, 'yod') and key_in_dict(composer, 'yob'):
-                    tikzstr += r"({yob}-{yod}) ".format(**composer)
+                    tikzstr += r"({yob}--{yod}) ".format(**composer)
                 elif key_in_dict(composer, 'yob'):
                     tikzstr += r"(*{yob}) ".format(**composer)
 
                 if key_in_dict(composer, 'arr'):
                     tikzstr += r"(arr. {arr}) ".format(**composer)
 
-            tikzstr += r"&  {{{}\\".format(piece['title'][0].capitalize() + piece['title'][1:])
+            tikzstr += r"&  {{{}\\".format(piece['title'][0].capitalize() + piece['title'][1:].rstrip() + (':' if key_in_dict(piece, 'movements') else ''))
             nl += 1
 
             if key_in_dict(piece, 'movements'):
