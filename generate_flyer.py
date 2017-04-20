@@ -26,7 +26,7 @@ parser.add_argument("json", type=str, help="filename of program in json format (
 parser.add_argument("--pdf", type=str, help="filename of pdf (out). By default, use the base name of json input. Use '-' to suppress pdf output.")
 parser.add_argument("--latex", type=str, help="filename of latex file (out). By default, no latex file is created.")
 parser.add_argument("--background", type=str, help="filename of background (in). By default, a uniformly colored background is created")
-parser.add_argument("--config", type=str, default='config', help="filename of config file (in) specifying formatting options. See file 'sample_config' for documentation")
+parser.add_argument("--config", type=str, default='config', help="filename of config file (in) specifying formatting options. By default, uses the file 'config' if it exists. See file 'sample_config' for documentation")
 
 if len(sys.argv)==1:
     parser.print_help()
