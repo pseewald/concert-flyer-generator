@@ -9,5 +9,13 @@ margin=0mm
 \begin{document}
 \thispagestyle{empty}
 \mbox{}
+\BLOCK{if color is defined}
 \pagecolor{\VAR{color|e}}
+\BLOCK{endif}
+
+\BLOCK{if color_html is defined}
+\definecolor{color_def}{HTML}{\VAR{color_html}}
+\pagecolor{color_def}
+\BLOCK{endif}
+
 \end{document}

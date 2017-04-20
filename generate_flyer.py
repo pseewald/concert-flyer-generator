@@ -51,6 +51,7 @@ else:
 
 config_defaults={'font': 'Helvetica',
                  'background color': 'blue!20',
+                 'background color html': '',
                  'background opacity': '1',
                  'horizontal offset': '1',
                  'vertical offset': '1',
@@ -72,6 +73,7 @@ except IOError:
 
 font = config.get('_', 'font')
 bgcol = config.get('_', 'background color')
+bgcol_html = config.get('_', 'background color html')
 hoff = config.getfloat('_', 'horizontal offset')
 voff = config.getfloat('_', 'vertical offset')
 nodesep = config.getfloat('_', 'node spacing')
@@ -210,8 +212,10 @@ builder = LatexMkBuilder(pdflatex='xelatex')
 # generate background
 if not bgpic and build_pdf:
     tpl = env.get_template('background.tex')
-
-    pdf = builder.build_pdf(tpl.render(color=bgcol))
+    if not bgcol_html:
+        pdf = builder.build_pdf(tpl.render(color=bgcol))
+    else:
+        pdf = builder.build_pdf(tpl.render(color_html=bgcol_html))
     pdf.save_to("background.pdf")
     bgpic = 'background.pdf'
 elif not bgpic:

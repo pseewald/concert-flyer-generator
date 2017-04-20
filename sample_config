@@ -1,8 +1,10 @@
 # This is a sample configuration
 # font installed on system
 font: Montserrat
-# background color (only used if no background picture)
+# background latex color (only used if no background picture)
 background color: yellow!20
+# background color in hexadecimal form
+background color html: FEF1E5
 # horizontal offset of tikzpicture
 horizontal offset: 1
 # vertical offset of tikzpicture
