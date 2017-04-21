@@ -1,0 +1,12 @@
+font: Montserrat
+foreground color html: FEF1E5
+background color html: 2C507F
+horizontal offset: 1
+vertical offset: 0.75
+node spacing: 0.5
+column width: [6.5, 11.4, 6.5]
+column spacing: 0.3
+row spacing: 0.03
+line spacing: 0.3
+program box margin: 0.3
+time box margin: %(program box margin)s

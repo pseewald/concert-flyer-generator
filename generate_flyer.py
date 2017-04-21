@@ -52,6 +52,8 @@ else:
 config_defaults={'font': 'Helvetica',
                  'background color': 'blue!20',
                  'background color html': '',
+                 'foreground color': 'white',
+                 'foreground color html': '',
                  'background opacity': '1',
                  'horizontal offset': '1',
                  'vertical offset': '1',
@@ -74,6 +76,8 @@ except IOError:
 font = config.get('_', 'font')
 bgcol = config.get('_', 'background color')
 bgcol_html = config.get('_', 'background color html')
+fgcol = config.get('_', 'foreground color')
+fgcol_html = config.get('_', 'foreground color html')
 hoff = config.getfloat('_', 'horizontal offset')
 voff = config.getfloat('_', 'vertical offset')
 nodesep = config.getfloat('_', 'node spacing')
@@ -226,6 +230,8 @@ tpl = env.get_template('flyer.tex')
 inst_latex = tpl.render(font=font,
                         bgopac=bgopac,
                         bgpic=bgpic,
+                        color=fgcol,
+                        color_html=fgcol_html,
                         colw=colw,
                         colsep=colsep,
                         rowsep=rowsep,

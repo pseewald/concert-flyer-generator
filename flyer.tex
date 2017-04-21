@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{tikz}
 \usepackage{geometry}
+\usepackage{xcolor}
 \usepackage{fontspec}
 \usepackage{background}
 \usepackage{setspace}
@@ -26,13 +27,24 @@ margin=0mm
 
 \small
 %\hyphenchar\font=-1 %used to suppress hyphenation
+
+\BLOCK{if color_html is defined}
+\definecolor{color_def}{HTML}{\VAR{color_html}}
+\BLOCK{endif}
+
 \tikzset
 {
     program/.style=
     {
         matrix of nodes,
         nodes in empty cells,
+\BLOCK{if color_html}
+        fill=color_def,
+\BLOCK{elif color}
+        fill=\VAR{color|e},
+\BLOCK{else}
         fill=white,
+\BLOCK{endif}
         line width=0.4mm,
         inner xsep=\VAR{mxsep}cm,
         inner ysep=\VAR{mysep}cm,
