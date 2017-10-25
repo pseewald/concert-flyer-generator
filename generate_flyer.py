@@ -54,6 +54,7 @@ config_defaults={'font': 'Helvetica',
                  'background color html': '',
                  'foreground color': 'white',
                  'foreground color html': '',
+                 'foreground opacity': '1',
                  'background opacity': '1',
                  'horizontal offset': '1',
                  'vertical offset': '1',
@@ -78,6 +79,7 @@ bgcol = config.get('_', 'background color')
 bgcol_html = config.get('_', 'background color html')
 fgcol = config.get('_', 'foreground color')
 fgcol_html = config.get('_', 'foreground color html')
+fgop = config.get('_', 'foreground opacity')
 hoff = config.getfloat('_', 'horizontal offset')
 voff = config.getfloat('_', 'vertical offset')
 nodesep = config.getfloat('_', 'node spacing')
@@ -232,6 +234,7 @@ inst_latex = tpl.render(font=font,
                         bgpic=bgpic,
                         color=fgcol,
                         color_html=fgcol_html,
+                        fgop=fgop,
                         colw=colw,
                         colsep=colsep,
                         rowsep=rowsep,
