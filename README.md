@@ -23,6 +23,7 @@ Various formatting options (font, background color, spacings) can be specified b
 ## Requirements
 
 * XeLaTeX
+* Latexmk
 * Python 2.7
 * Latex packages: tikz, geometry, fontspec, background, setspace
 * Python modules: [jsonschema](https://github.com/Julian/jsonschema), [jinja2](https://github.com/pallets/jinja), [latex](https://github.com/mbr/latex)
