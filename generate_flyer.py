@@ -66,6 +66,8 @@ config_defaults={'font': 'Helvetica',
                  'program box margin': '0.3',
                  'time box margin': '0.3'}
 
+topdir = os.path.dirname(__file__)
+
 config = ConfigParser.SafeConfigParser(config_defaults)
 
 try:
@@ -99,7 +101,7 @@ def key_in_dict(d, k):
 
 # what to build
 
-with io.open("schema.json", 'r', encoding='utf-8') as infile:
+with io.open(os.path.join(topdir, "schema.json"), 'r', encoding='utf-8') as infile:
     schema = json.loads(infile.read())
 
 with io.open(args.json, 'r', encoding='utf-8') as infile:
@@ -210,7 +212,7 @@ for ipart, part in enumerate(program_full):
     tikzstr += r'\node (time {3}) [time, {0}={4}cm of part {3}.{1}, anchor = {2}] {{\textbf{{{5}}}}};'.format(
         timeftd['pos'][ipart], timeftd['relpos'][ipart], timeftd['anchor'][ipart], ipart, nodesep, time) + '\n'
 
-env = make_env(loader=FileSystemLoader('.'))
+env = make_env(loader=FileSystemLoader(topdir))
 
 # builder to use xelatex instead of pdflatex
 builder = LatexMkBuilder(pdflatex='xelatex')
